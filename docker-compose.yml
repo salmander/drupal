@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        volumes:
+            - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf
+            - ./emag:/var/www/emag
+        links:
+            - php-fpm
+    php-fpm:
+        image: drupal:8.1-fpm
+        
