@@ -11,5 +11,19 @@ services:
         links:
             - php-fpm
     php-fpm:
-        image: drupal:8.1-fpm
-        
+        image: drupal:8.2.1-fpm
+        ports:
+         - "9000:9000"
+        working_dir: /var/www/emag
+        volumes:
+         - ./emag:/var/www/emag
+    db:
+        image: postgres:9.6
+        environment:
+         - POSTGRES_USER=web
+         - POSTGRES_PASSWORD=password
+         - PGDATA=/var/lib/postgresql/data/pgdata
+        ports:
+         - "5432:5432"
+        volumes:
+         - ./docker/db/postgresql-data-dir:/var/lib/postgresql/data/pgdata
